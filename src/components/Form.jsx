@@ -152,6 +152,7 @@ const UserLI = styled.li ``
 
 
 const Form = ({isLogin}) => {
+  // Criação das variáveis de estado usando o hook useState
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState("")
@@ -163,7 +164,7 @@ const Form = ({isLogin}) => {
 
   const navigate = useNavigate()
             
-
+ // Função para buscar os usuários na API
   const searchUsers = () => {
     fetch('http://localhost:3001/usuarios')
       .then((response) => response.json())
@@ -173,14 +174,15 @@ const Form = ({isLogin}) => {
       });
   };
 
+  // Função para lidar com o evento de login
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const isAdmin = email === 'igor_contatos@hotmail.com' && password === '98582241';
+    const isAdmin = email === 'admin@admin.com' && password === '123';
 
   if (isAdmin) {
     setAutenticado(true);
-    setUsuarioAtual({ nome: 'Admin', email: 'igor_contatos@hotmail.com', password: "98582241", usuarios: usuarios  });
+    setUsuarioAtual({ name: 'Admin', email: 'admin@admin.com', password: "123", usuarios: usuarios  });
     return; // Interrompe a execução da função
   }
 
@@ -196,6 +198,7 @@ const Form = ({isLogin}) => {
   }
   };
 
+  // Função para lidar com o evento de logout
   const handleLogout = (e) => {
     e.preventDefault();
 
@@ -205,6 +208,7 @@ const Form = ({isLogin}) => {
     setPassword('')
   };
 
+  // Função para lidar com o evento de envio do formulário de registro
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -271,6 +275,7 @@ const Form = ({isLogin}) => {
     }
   };
 
+  // Efeito colateral que exibe um alerta quando o estado submitSuccess é atualizado
   useEffect(() => {
     if (submitSuccess) {
       alert("Usuário cadastrado com sucesso!");
@@ -282,6 +287,7 @@ const Form = ({isLogin}) => {
   return (
     <>
       {isLogin ? (
+        // Renderiza o formulário de login ou a página do usuário logado
         <>
           {!autenticado ? (
             <FormContainer onSubmit={handleLogin}>
@@ -323,6 +329,7 @@ const Form = ({isLogin}) => {
           )}
         </>
       ) : (
+        // Renderiza o formulário de registro
         <>
           <FormContainer onSubmit={handleSubmit}>
             <FormTitle>Register</FormTitle>
